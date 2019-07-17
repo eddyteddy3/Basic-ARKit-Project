@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032B1B8022DF823000C8BE5D /* ARViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032B1B7F22DF823000C8BE5D /* ARViewExtension.swift */; };
 		03970B0522DD64BC007B62F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03970B0422DD64BC007B62F6 /* AppDelegate.swift */; };
 		03970B0722DD64BC007B62F6 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 03970B0622DD64BC007B62F6 /* art.scnassets */; };
 		03970B0922DD64BC007B62F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03970B0822DD64BC007B62F6 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		032B1B7F22DF823000C8BE5D /* ARViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewExtension.swift; sourceTree = "<group>"; };
 		03970B0122DD64BC007B62F6 /* Project1ARKIT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project1ARKIT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03970B0422DD64BC007B62F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03970B0622DD64BC007B62F6 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				03970B0422DD64BC007B62F6 /* AppDelegate.swift */,
 				03970B0622DD64BC007B62F6 /* art.scnassets */,
 				03970B0822DD64BC007B62F6 /* ViewController.swift */,
+				032B1B7F22DF823000C8BE5D /* ARViewExtension.swift */,
 				03970B0A22DD64BC007B62F6 /* Main.storyboard */,
 				03970B0D22DD64BF007B62F6 /* Assets.xcassets */,
 				03970B0F22DD64BF007B62F6 /* LaunchScreen.storyboard */,
@@ -139,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				032B1B8022DF823000C8BE5D /* ARViewExtension.swift in Sources */,
 				03970B0922DD64BC007B62F6 /* ViewController.swift in Sources */,
 				03970B0522DD64BC007B62F6 /* AppDelegate.swift in Sources */,
 			);
