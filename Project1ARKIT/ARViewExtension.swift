@@ -24,13 +24,19 @@ extension ViewController: ARSCNViewDelegate {
         //adding the child node to the root node "node"
         node.addChildNode(planeNode)
         
+        guard focusSquare == nil else {return} //if the focus already exist you don't have to make new one
+        let focusSquareLocal = FocusSquare() //object from focusSquare class
+        
+        sceneView.scene.rootNode.addChildNode(focusSquareLocal)
+        
+        focusSquare = focusSquareLocal
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         
         guard anchor is ARPlaneAnchor else {return}
         
-        print("plane updated")
+        //print("plane updated")
         
         let planeAnchor = anchor as! ARPlaneAnchor
         
@@ -54,6 +60,25 @@ extension ViewController: ARSCNViewDelegate {
             childNode.removeFromParentNode()
         }
         
+    }
+    
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
+        guard let focusSquareLocal = focusSquare else {return}
+        
+        
+        let hitTest = sceneView.hitTest(screenCenter, types: .existingPlane)
+        let hitTestResult = hitTest.first
+        
+        guard let worldTransform = hitTestResult?.worldTransform else {return}
+        let worldTransformColomn3 = worldTransform.columns.3
+        
+        focusSquareLocal.position = SCNVector3(worldTransformColomn3.x, worldTransformColomn3.y, worldTransformColomn3.z)
+        
+        DispatchQueue.main.async {
+            self.updateFocusSquare()
+        }
     }
     
     //this function will take plane as parameter and return the node attached in result which will attach to the node
