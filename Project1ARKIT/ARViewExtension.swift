@@ -24,12 +24,13 @@ extension ViewController: ARSCNViewDelegate {
         //adding the child node to the root node "node"
         node.addChildNode(planeNode)
         
+        //we will show the focus on the screen only when the flat surface is detected
         guard focusSquare == nil else {return} //if the focus already exist you don't have to make new one
         let focusSquareLocal = FocusSquare() //object from focusSquare class
         
         sceneView.scene.rootNode.addChildNode(focusSquareLocal)
         
-        focusSquare = focusSquareLocal
+        focusSquare = focusSquareLocal//saving it to the real class variable for later use
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
@@ -62,20 +63,28 @@ extension ViewController: ARSCNViewDelegate {
         
     }
     
-    
+    //we are creating this because the frame will be updated as well as the center of UIView
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         
         guard let focusSquareLocal = focusSquare else {return}
         
-        
+        //now, hit test will be performed here to display the 2D model in 3D space. The ARHitTestResult will search for real world objects and its intersaction.
         let hitTest = sceneView.hitTest(screenCenter, types: .existingPlane)
-        let hitTestResult = hitTest.first
+        let hitTestResult = hitTest.first //first result becuase it is the nearest plane from the camera
+        
+        /*
+            we want to retrieve the position of the surface which is stored in World Transform
+        */
+        //the World Transform will give the result such as Orientation, Position and Scale relative to the real world.
         
         guard let worldTransform = hitTestResult?.worldTransform else {return}
+        //the world transform is 4x4 matrix, of which last column contains the useful information.
         let worldTransformColomn3 = worldTransform.columns.3
         
+        //now assign the position of world transform to FocusSquare
         focusSquareLocal.position = SCNVector3(worldTransformColomn3.x, worldTransformColomn3.y, worldTransformColomn3.z)
-        
+         
+        //releasing a background thread for the function created in MainViewController, updateFocusSquare()
         DispatchQueue.main.async {
             self.updateFocusSquare()
         }

@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet var sceneView: ARSCNView!
     
     //declaring focus class variable to use it
-    var focusSquare: FocusSquare?
-    var screenCenter: CGPoint!
+    var focusSquare: FocusSquare? //declaring it optional because sometimes it won't have. The properties will immediately be instanciated from init() method
+    var screenCenter: CGPoint! //to make the focusSquare follow the mobile screen
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         sceneView.autoenablesDefaultLighting = true
         //sceneView.automaticallyUpdatesLighting = true
         
-        screenCenter = view.center
+        screenCenter = view.center //setting the view's center
         
         // Create a new scene
         //let scene = SCNScene(named: "art.scnassets/ship.scn")!
@@ -63,16 +63,19 @@ class ViewController: UIViewController {
         sceneView.session.pause()
     }
     
-   /* override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
         let viewCenter = CGPoint(x: size.width/2, y: size.height/2)
         screenCenter = viewCenter
-    } */
+    }
     
     func updateFocusSquare() {
+        //just to know if Focus Square exists
         guard let focusSquareLocal = focusSquare else {return}
-        
+                
+        //again we will perform hit test to know the size of existing plane, that we will use as anchor.
+        //to get the size we will use extent of existing plane
         let hitTest = sceneView.hitTest(screenCenter, types: .existingPlaneUsingExtent)
         
         if let hitTestResult = hitTest.first {
